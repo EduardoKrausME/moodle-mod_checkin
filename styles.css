@@ -1,0 +1,16 @@
+.mod-checkin {
+    max-width: 900px;
+}
+
+.mod-checkin-code-value {
+    letter-spacing: .18em;
+    font-variant-numeric: tabular-nums;
+    font-size: 41px;
+}
+
+.mod-checkin-code-input {
+    max-width: 18rem;
+    font-size: 1.5rem;
+    letter-spacing: .15em;
+    font-variant-numeric: tabular-nums;
+}
