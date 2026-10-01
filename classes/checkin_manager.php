@@ -73,10 +73,10 @@ class checkin_manager {
      */
     public static function register_teacher_location(
         stdClass $checkin,
-        int      $userid,
-        float    $latitude,
-        float    $longitude,
-        ?float   $accuracy
+        int $userid,
+        float $latitude,
+        float $longitude,
+        ?float $accuracy
     ): void {
         global $DB;
 
@@ -124,11 +124,11 @@ class checkin_manager {
     public static function mark_presence(
         stdClass $checkin,
         stdClass $cm,
-        int      $userid,
-        string   $code = "",
-        ?float   $latitude = null,
-        ?float   $longitude = null,
-        ?float   $accuracy = null
+        int $userid,
+        string $code = "",
+        ?float $latitude = null,
+        ?float $longitude = null,
+        ?float $accuracy = null
     ): stdClass {
         global $CFG, $DB;
 
