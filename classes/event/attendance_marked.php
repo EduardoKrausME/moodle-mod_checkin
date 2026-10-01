@@ -24,10 +24,13 @@
 
 namespace mod_checkin\event;
 
+use core\event\base;
+use moodle_url;
+
 /**
  * Class attendance_marked.
  */
-class attendance_marked extends \core\event\base {
+class attendance_marked extends base {
     /**
      * Method init.
      *
@@ -64,6 +67,6 @@ class attendance_marked extends \core\event\base {
      * @return mixed Return value.
      */
     public function get_url() {
-        return new \moodle_url("/mod/checkin/view.php", ["id" => $this->contextinstanceid]);
+        return new moodle_url("/mod/checkin/view.php", ["id" => $this->contextinstanceid]);
     }
 }

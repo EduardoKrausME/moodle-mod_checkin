@@ -23,17 +23,26 @@ Em Moodle 5.1 ou superior, os plugins ficam dentro do diretório `public/mod/`. 
 
 ## Como funciona o IP
 
-Quando a opção **Exigir o mesmo endereço IP do professor** estiver ativa, o professor abre a atividade na rede da sala e clica em **Usar este IP**. O Moodle grava o endereço IP que ele identifica naquele acesso. O aluno só consegue registrar presença quando o Moodle identifica exatamente o mesmo IP.
+Quando a opção **Exigir o mesmo endereço IP do professor** estiver ativa, o professor abre a atividade na rede da sala e
+clica em **Usar este IP**. O Moodle grava o endereço IP que ele identifica naquele acesso. O aluno só consegue registrar
+presença quando o Moodle identifica exatamente o mesmo IP.
 
-Isso é especialmente útil quando professor e alunos estão no mesmo Wi-Fi e saem para a internet pelo mesmo NAT. Não é prova criptográfica de presença: VPNs, proxies, CGNAT e configurações incorretas de proxy reverso podem reduzir a confiabilidade.
+Isso é especialmente útil quando professor e alunos estão no mesmo Wi-Fi e saem para a internet pelo mesmo NAT. Não é
+prova criptográfica de presença: VPNs, proxies, CGNAT e configurações incorretas de proxy reverso podem reduzir a
+confiabilidade.
 
 ## Como funciona a localização
 
-Quando a opção **Exigir localização** estiver ativa, o professor abre a atividade na sala e clica em **Capturar minha localização**. O navegador solicita permissão e envia latitude, longitude e precisão. O professor define um raio permitido em metros.
+Quando a opção **Exigir localização** estiver ativa, o professor abre a atividade na sala e clica em **Capturar minha
+localização**. O navegador solicita permissão e envia latitude, longitude e precisão. O professor define um raio
+permitido em metros.
 
-No check-in do aluno, o navegador solicita a localização e o servidor calcula a distância até o ponto de referência usando a fórmula de Haversine. O registro só é aceito quando a distância calculada está dentro do raio.
+No check-in do aluno, o navegador solicita a localização e o servidor calcula a distância até o ponto de referência
+usando a fórmula de Haversine. O registro só é aceito quando a distância calculada está dentro do raio.
 
-A Geolocation API do navegador normalmente exige HTTPS. Coordenadas fornecidas pelo navegador também podem ser falsificadas em um dispositivo controlado pelo usuário; portanto, a localização deve ser tratada como uma barreira contra fraude casual, não como prova absoluta de presença.
+A Geolocation API do navegador normalmente exige HTTPS. Coordenadas fornecidas pelo navegador também podem ser
+falsificadas em um dispositivo controlado pelo usuário; portanto, a localização deve ser tratada como uma barreira
+contra fraude casual, não como prova absoluta de presença.
 
 ## Instalação
 
@@ -43,7 +52,8 @@ Copie a pasta `checkin` para o diretório de módulos do Moodle e execute a atua
 php admin/cli/upgrade.php
 ```
 
-No Moodle 5.1+ o caminho do CLI fica sob `public/admin/cli/upgrade.php` quando a instalação segue a nova estrutura de diretórios.
+No Moodle 5.1+ o caminho do CLI fica sob `public/admin/cli/upgrade.php` quando a instalação segue a nova estrutura de
+diretórios.
 
 ## Privacidade
 

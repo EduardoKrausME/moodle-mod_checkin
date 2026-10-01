@@ -30,17 +30,20 @@ use core_privacy\local\metadata\collection;
 use core_privacy\local\request\approved_contextlist;
 use core_privacy\local\request\approved_userlist;
 use core_privacy\local\request\contextlist;
+use core_privacy\local\request\core_user_data_provider;
+use core_privacy\local\request\core_userlist_provider;
 use core_privacy\local\request\transform;
 use core_privacy\local\request\userlist;
 use core_privacy\local\request\writer;
+use stdClass;
 
 /**
  * Class provider.
  */
 class provider implements
-        \core_privacy\local\metadata\provider,
-        \core_privacy\local\request\core_user_data_provider,
-        \core_privacy\local\request\core_userlist_provider {
+    \core_privacy\local\metadata\provider,
+    core_user_data_provider,
+    core_userlist_provider {
 
     /**
      * Method get_metadata.
@@ -116,7 +119,7 @@ class provider implements
                 continue;
             }
 
-            $export = new \stdClass();
+            $export = new stdClass();
             $record = $DB->get_record("checkin_records", ["checkinid" => $checkin->id, "userid" => $userid]);
             if ($record) {
                 $export->record = (object)[
@@ -130,7 +133,7 @@ class provider implements
             }
 
             if ((int)$checkin->teacheripuserid === $userid || (int)$checkin->teacherlocationuserid === $userid) {
-                $reference = new \stdClass();
+                $reference = new stdClass();
                 if ((int)$checkin->teacheripuserid === $userid) {
                     $reference->ipaddress = $checkin->teacherip;
                     $reference->iptime = $checkin->teacheriptime ? transform::datetime($checkin->teacheriptime) : null;
@@ -246,9 +249,9 @@ class provider implements
      * Method get_checkin_for_context.
      *
      * @param context $context Parameter context.
-     * @return ?\stdClass Return value.
+     * @return ?stdClass Return value.
      */
-    private static function get_checkin_for_context(context $context): ?\stdClass {
+    private static function get_checkin_for_context(context $context): ?stdClass {
         global $DB;
 
         if ($context->contextlevel !== CONTEXT_MODULE) {
@@ -264,11 +267,11 @@ class provider implements
     /**
      * Method clear_user_reference_data.
      *
-     * @param \stdClass $checkin Parameter checkin.
+     * @param stdClass $checkin Parameter checkin.
      * @param int $userid Parameter userid.
      * @return void Return value.
      */
-    private static function clear_user_reference_data(\stdClass $checkin, int $userid): void {
+    private static function clear_user_reference_data(stdClass $checkin, int $userid): void {
         if ((int)$checkin->teacheripuserid === $userid) {
             self::clear_ip_reference($checkin->id);
         }

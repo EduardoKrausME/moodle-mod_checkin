@@ -44,7 +44,7 @@ $PAGE->set_heading(format_string($course->fullname));
 $viewurl = new moodle_url("/mod/checkin/view.php", ["id" => $cm->id]);
 $action = optional_param("action", "", PARAM_ALPHA);
 
-$readcoordinate = static function(string $name): ?float {
+$readcoordinate = static function (string $name): ?float {
     $value = optional_param($name, "", PARAM_RAW_TRIMMED);
     if ($value === "") {
         return null;

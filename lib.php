@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_checkin\checkin_manager;
+
 /**
  * checkin_supports
  *
@@ -53,7 +55,7 @@ function checkin_add_instance($data, $mform = null) {
     $data->timecreated = time();
     $data->timemodified = $data->timecreated;
     $data->checkincode = !empty($data->usecode)
-        ? \mod_checkin\checkin_manager::generate_code((int)$data->codelength)
+        ? checkin_manager::generate_code((int)$data->codelength)
         : null;
 
     return $DB->insert_record("checkin", $data);
@@ -76,7 +78,7 @@ function checkin_update_instance($data, $mform = null) {
     $current = $DB->get_record("checkin", ["id" => $data->id], "id,usecode,codelength,checkincode", MUST_EXIST);
     if (!empty($data->usecode)) {
         if (empty($current->checkincode) || (int)$current->codelength !== (int)$data->codelength) {
-            $data->checkincode = \mod_checkin\checkin_manager::generate_code((int)$data->codelength);
+            $data->checkincode = checkin_manager::generate_code((int)$data->codelength);
         }
     } else {
         $data->checkincode = null;

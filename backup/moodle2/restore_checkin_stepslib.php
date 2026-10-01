@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_checkin\checkin_manager;
+
 /**
  * restore_checkin_activity_structure_step
  */
@@ -51,7 +53,7 @@ class restore_checkin_activity_structure_step extends restore_activity_structure
         $data = (object)$data;
         $data->course = $this->get_courseid();
         $data->checkincode = !empty($data->usecode)
-            ? \mod_checkin\checkin_manager::generate_code((int)$data->codelength)
+            ? checkin_manager::generate_code((int)$data->codelength)
             : null;
         $data->teacherip = null;
         $data->teacheripuserid = null;

@@ -21,8 +21,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(["jquery"], function($) {
-    var captureLocation = function($form) {
+define(["jquery"], function ($) {
+    var captureLocation = function ($form) {
         var unsupported = $form.data("location-unsupported");
         var error = $form.data("location-error");
 
@@ -34,13 +34,13 @@ define(["jquery"], function($) {
         var $button = $form.find("button[type='submit']");
         $button.prop("disabled", true);
 
-        navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.getCurrentPosition(function (position) {
             $form.find("input[name='latitude']").val(position.coords.latitude);
             $form.find("input[name='longitude']").val(position.coords.longitude);
             $form.find("input[name='accuracy']").val(position.coords.accuracy || "");
             $form.attr("data-location-ready", "1");
             $form.get(0).submit();
-        }, function() {
+        }, function () {
             $button.prop("disabled", false);
             window.alert(error);
         }, {
@@ -51,8 +51,8 @@ define(["jquery"], function($) {
     };
 
     return {
-        init: function() {
-            $(document).on("submit", "form[data-checkin-location-form='1']", function(event) {
+        init: function () {
+            $(document).on("submit", "form[data-checkin-location-form='1']", function (event) {
                 var $form = $(this);
                 if ($form.attr("data-location-ready") === "1") {
                     return;
@@ -61,7 +61,7 @@ define(["jquery"], function($) {
                 captureLocation($form);
             });
 
-            $(document).on("submit", "form[data-checkin-student-form='1']", function(event) {
+            $(document).on("submit", "form[data-checkin-student-form='1']", function (event) {
                 var $form = $(this);
                 if ($form.data("require-location") !== 1 || $form.attr("data-location-ready") === "1") {
                     return;
