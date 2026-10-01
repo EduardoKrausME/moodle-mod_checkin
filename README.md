@@ -15,12 +15,6 @@ Atividade Moodle simples para registrar presença durante uma janela de tempo.
 - Backup e restore da atividade.
 - Idiomas `en` e `pt_br`.
 
-## Compatibilidade
-
-Moodle 4.5 a 5.2.
-
-Em Moodle 5.1 ou superior, os plugins ficam dentro do diretório `public/mod/`. Em versões anteriores, ficam em `mod/`.
-
 ## Como funciona o IP
 
 Quando a opção **Exigir o mesmo endereço IP do professor** estiver ativa, o professor abre a atividade na rede da sala e
@@ -43,17 +37,6 @@ usando a fórmula de Haversine. O registro só é aceito quando a distância cal
 A Geolocation API do navegador normalmente exige HTTPS. Coordenadas fornecidas pelo navegador também podem ser
 falsificadas em um dispositivo controlado pelo usuário; portanto, a localização deve ser tratada como uma barreira
 contra fraude casual, não como prova absoluta de presença.
-
-## Instalação
-
-Copie a pasta `checkin` para o diretório de módulos do Moodle e execute a atualização normal do site:
-
-```bash
-php admin/cli/upgrade.php
-```
-
-No Moodle 5.1+ o caminho do CLI fica sob `public/admin/cli/upgrade.php` quando a instalação segue a nova estrutura de
-diretórios.
 
 ## Privacidade
 
