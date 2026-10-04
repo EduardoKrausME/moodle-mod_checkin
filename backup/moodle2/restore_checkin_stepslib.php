@@ -52,6 +52,8 @@ class restore_checkin_activity_structure_step extends restore_activity_structure
 
         $data = (object)$data;
         $data->course = $this->get_courseid();
+        $data->timestart = $this->apply_date_offset($data->timestart);
+        $data->timeend = $this->apply_date_offset($data->timeend);
         $data->checkincode = !empty($data->usecode)
             ? checkin_manager::generate_code((int)$data->codelength)
             : null;

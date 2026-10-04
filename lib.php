@@ -105,3 +105,34 @@ function checkin_delete_instance($id) {
     $DB->delete_records("checkin", ["id" => $id]);
     return true;
 }
+
+
+/**
+ * Returns information used to build and cache the course module.
+ *
+ * @param stdClass $coursemodule Course module record.
+ * @return cached_cm_info|null Course module information.
+ */
+function checkin_get_coursemodule_info($coursemodule) {
+    global $DB;
+
+    $checkin = $DB->get_record(
+        "checkin",
+        ["id" => $coursemodule->instance],
+        "id,completioncheckin",
+        IGNORE_MISSING
+    );
+    if (!$checkin) {
+        return null;
+    }
+
+    $result = new cached_cm_info();
+    if ((int)$coursemodule->completion === COMPLETION_TRACKING_AUTOMATIC) {
+        $result->customdata = [
+            "customcompletionrules" => [
+                "completioncheckin" => (int)$checkin->completioncheckin,
+            ],
+        ];
+    }
+    return $result;
+}

@@ -15,17 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * version.php
+ * Cache definitions.
  *
  * @package   mod_checkin
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined("MOODLE_INTERNAL") || die;
 
-$plugin->version = 2026100301;
-$plugin->release = '1.1.2';
-$plugin->component = "mod_checkin";
-$plugin->requires = 2024100700;
-$plugin->maturity = MATURITY_STABLE;
+$definitions = [
+    "checkinattempts" => [
+        "mode" => cache_store::MODE_APPLICATION,
+        "simplekeys" => true,
+    ],
+];

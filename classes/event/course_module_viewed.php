@@ -15,51 +15,35 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * restore_checkin_activity_task.class.php
+ * Course module viewed event.
  *
  * @package   mod_checkin
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once($CFG->dirroot . "/mod/checkin/backup/moodle2/restore_checkin_stepslib.php");
+namespace mod_checkin\event;
 
 /**
- * Class restore_checkin_activity_task.
+ * Event triggered when the check-in activity is viewed.
  */
-class restore_checkin_activity_task extends restore_activity_task {
+class course_module_viewed extends \core\event\course_module_viewed {
     /**
-     * Method define_my_settings.
+     * Initialise the event.
      *
-     * @return mixed Return value.
+     * @return void
      */
-    protected function define_my_settings() {
+    protected function init() {
+        $this->data["objecttable"] = "checkin";
+        parent::init();
     }
 
     /**
-     * Method define_my_steps.
+     * Returns the object ID mapping for restore.
      *
-     * @return mixed Return value.
+     * @return array
      */
-    protected function define_my_steps() {
-        $this->add_step(new restore_checkin_activity_structure_step("checkin_structure", "checkin.xml"));
-    }
-
-    /**
-     * Method define_decode_contents.
-     *
-     * @return mixed Return value.
-     */
-    public static function define_decode_contents() {
-        return [];
-    }
-
-    /**
-     * Method define_decode_rules.
-     *
-     * @return mixed Return value.
-     */
-    public static function define_decode_rules() {
-        return [];
+    public static function get_objectid_mapping() {
+        return ["db" => "checkin", "restore" => "checkin"];
     }
 }

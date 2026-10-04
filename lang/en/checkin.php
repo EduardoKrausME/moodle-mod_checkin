@@ -108,6 +108,7 @@ $string['student'] = 'Student';
 $string['teachercontrols'] = 'Teacher controls';
 $string['teacheripnotset'] = 'The teacher has not registered the classroom IP address yet.';
 $string['time'] = 'Time';
+$string['toomanycodeattempts'] = 'Too many incorrect code attempts. Try again in a few minutes.';
 $string['timeend'] = 'Closes at';
 $string['timestart'] = 'Opens at';
 $string['totalpresent'] = 'Present:  of ';

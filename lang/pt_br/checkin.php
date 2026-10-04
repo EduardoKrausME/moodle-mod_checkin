@@ -108,6 +108,7 @@ $string['student'] = 'Aluno';
 $string['teachercontrols'] = 'Controles do professor';
 $string['teacheripnotset'] = 'O professor ainda não registrou o endereço IP da sala.';
 $string['time'] = 'Horário';
+$string['toomanycodeattempts'] = 'Muitas tentativas de código incorreto. Tente novamente em alguns minutos.';
 $string['timeend'] = 'Fecha em';
 $string['timestart'] = 'Abre em';
 $string['totalpresent'] = 'Presentes:  de ';

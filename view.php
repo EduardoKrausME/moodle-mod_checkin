@@ -116,6 +116,16 @@ if ($action !== "" && data_submitted()) {
 }
 
 $checkin = $DB->get_record("checkin", ["id" => $cm->instance], "*", MUST_EXIST);
+
+$event = \\mod_checkin\\event\\course_module_viewed::create([
+    "objectid" => $checkin->id,
+    "context" => $context,
+]);
+$event->add_record_snapshot("course", $course);
+$event->add_record_snapshot("course_modules", $cm);
+$event->add_record_snapshot("checkin", $checkin);
+$event->trigger();
+
 $record = $DB->get_record("checkin_records", ["checkinid" => $checkin->id, "userid" => $USER->id]);
 $now = time();
 $windowopen = $now >= (int)$checkin->timestart && $now <= (int)$checkin->timeend;

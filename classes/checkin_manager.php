@@ -34,6 +34,12 @@ use stdClass;
  * Class checkin_manager.
  */
 class checkin_manager {
+    /** Maximum number of invalid code attempts before a temporary block. */
+    private const MAX_CODE_ATTEMPTS = 5;
+
+    /** Temporary block duration after too many invalid code attempts. */
+    private const CODE_BLOCK_SECONDS = 300;
+
     /**
      * Method generate_code.
      *
@@ -148,10 +154,32 @@ class checkin_manager {
         }
 
         if (!empty($checkin->usecode)) {
+            $attemptcache = \cache::make("mod_checkin", "checkinattempts");
+            $attemptkey = (int)$checkin->id . "_" . $userid;
+            $attempt = $attemptcache->get($attemptkey);
+
+            if (is_array($attempt) && !empty($attempt["blockeduntil"])) {
+                if ((int)$attempt["blockeduntil"] > $now) {
+                    throw new moodle_exception("toomanycodeattempts", "mod_checkin");
+                }
+                $attemptcache->delete($attemptkey);
+                $attempt = false;
+            }
+
             $expected = (string)$checkin->checkincode;
             if ($expected === "" || !hash_equals($expected, trim($code))) {
+                $count = is_array($attempt) ? (int)($attempt["count"] ?? 0) + 1 : 1;
+                $blockeduntil = $count >= self::MAX_CODE_ATTEMPTS ? $now + self::CODE_BLOCK_SECONDS : 0;
+                $attemptcache->set($attemptkey, [
+                    "count" => $count,
+                    "blockeduntil" => $blockeduntil,
+                ]);
+                if ($blockeduntil) {
+                    throw new moodle_exception("toomanycodeattempts", "mod_checkin");
+                }
                 throw new moodle_exception("invalidcode", "mod_checkin");
             }
+            $attemptcache->delete($attemptkey);
         }
 
         $ipaddress = null;

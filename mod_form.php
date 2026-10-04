@@ -55,7 +55,7 @@ class mod_checkin_mod_form extends moodleform_mod {
             4 => get_string("digits4", "mod_checkin"),
             6 => get_string("digits6", "mod_checkin"),
         ]);
-        $mform->setDefault("codelength", 4);
+        $mform->setDefault("codelength", 6);
         $mform->hideIf("codelength", "usecode", "notchecked");
 
         $mform->addElement("advcheckbox", "requireteacherip", get_string("requireteacherip", "mod_checkin"));
