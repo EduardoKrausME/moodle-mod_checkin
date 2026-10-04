@@ -117,7 +117,7 @@ if ($action !== "" && data_submitted()) {
 
 $checkin = $DB->get_record("checkin", ["id" => $cm->instance], "*", MUST_EXIST);
 
-$event = \\mod_checkin\\event\\course_module_viewed::create([
+$event = \mod_checkin\event\course_module_viewed::create([
     "objectid" => $checkin->id,
     "context" => $context,
 ]);
