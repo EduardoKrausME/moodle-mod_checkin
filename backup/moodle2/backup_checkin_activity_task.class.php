@@ -23,7 +23,6 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
-
 require_once("{$CFG->dirroot}/mod/checkin/backup/moodle2/backup_checkin_stepslib.php");
 
 /**
