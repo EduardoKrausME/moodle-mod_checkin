@@ -105,13 +105,12 @@ class mod_checkin_mod_form extends moodleform_mod {
     public function data_postprocessing($data) {
         parent::data_postprocessing($data);
 
-        $suffix = $this->get_suffix();
-        $completionfield = "completion" . $suffix;
-        $rulefield = "completioncheckin" . $suffix;
-        $autocompletion = !empty($data->{$completionfield})
-            && (int)$data->{$completionfield} === COMPLETION_TRACKING_AUTOMATIC;
-        if (!$autocompletion || empty($data->{$rulefield})) {
-            $data->{$rulefield} = 0;
+        if (!empty($data->completionunlocked)) {
+            $suffix = $this->get_suffix();
+            $rulefield = "completioncheckin" . $suffix;
+            if (empty($data->{$rulefield})) {
+                $data->{$rulefield} = 0;
+            }
         }
     }
 
@@ -125,6 +124,7 @@ class mod_checkin_mod_form extends moodleform_mod {
         $suffix = $this->get_suffix();
         $element = "completioncheckin" . $suffix;
         $mform->addElement("advcheckbox", $element, "", get_string("completioncheckin", "mod_checkin"));
+        $mform->setDefault($element, 1);
         return [$element];
     }
 
