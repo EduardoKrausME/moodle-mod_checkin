@@ -61,6 +61,31 @@ class custom_completion extends activity_custom_completion {
     }
 
     /**
+     * Returns the custom completion rules enabled for this activity instance.
+     *
+     * The activity record is the source of truth for the rule setting. This avoids
+     * rejecting an enabled rule when course-module cached custom data is stale while
+     * completion settings are being rebuilt.
+     *
+     * @return string[]
+     */
+    public function get_available_custom_rules(): array {
+        global $DB;
+
+        if ((int)$this->cm->completion !== COMPLETION_TRACKING_AUTOMATIC) {
+            return [];
+        }
+
+        $enabled = $DB->get_field(
+            "checkin",
+            "completioncheckin",
+            ["id" => $this->cm->instance]
+        );
+
+        return !empty($enabled) ? ["completioncheckin"] : [];
+    }
+
+    /**
      * Method get_custom_rule_descriptions.
      *
      * @return array Return value.
