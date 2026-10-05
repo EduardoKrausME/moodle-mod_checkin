@@ -239,7 +239,8 @@ class checkin_manager {
         $event->add_record_snapshot("checkin_records", $record);
         $event->trigger();
 
-        if (!empty($checkin->completioncheckin)) {
+        if (!empty($checkin->completioncheckin)
+            && (int)$cm->completion === COMPLETION_TRACKING_AUTOMATIC) {
             $course = get_course($cm->course);
             $completion = new completion_info($course);
             $completion->update_state($cm, COMPLETION_COMPLETE, $userid);
