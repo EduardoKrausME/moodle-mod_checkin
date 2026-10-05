@@ -23,7 +23,6 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
-require_once("{$CFG->dirroot}/mod/checkin/backup/moodle2/backup_checkin_stepslib.php");
 
 /**
  * Class backup_checkin_activity_task.
@@ -43,6 +42,9 @@ class backup_checkin_activity_task extends backup_activity_task {
      * @return mixed Return value.
      */
     protected function define_my_steps() {
+        global $CFG;
+
+        require_once($CFG->dirroot . "/mod/checkin/backup/moodle2/backup_checkin_stepslib.php");
         $this->add_step(new backup_checkin_activity_structure_step("checkin_structure", "checkin.xml"));
     }
 
