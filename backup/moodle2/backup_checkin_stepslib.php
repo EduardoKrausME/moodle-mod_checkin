@@ -66,10 +66,9 @@ class backup_checkin_activity_structure_step extends backup_activity_structure_s
 
         $checkin->set_source_table("checkin", ["id" => backup::VAR_ACTIVITYID]);
         if ($userinfo) {
-            $record->set_source_table("checkin_records", ["checkinid" => backup::VAR_PARENTID]);
+            $record->set_source_table("checkin_records", ["checkinid" => "../../id"]);
+            $record->annotate_ids("user", "userid");
         }
-
-        $record->annotate_ids("user", "userid");
 
         $checkin->annotate_files("mod_checkin", "intro", null);
 
