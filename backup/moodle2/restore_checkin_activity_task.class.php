@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once($CFG->dirroot . "/mod/checkin/backup/moodle2/restore_checkin_stepslib.php");
+require_once(__DIR__ . "/restore_checkin_stepslib.php");
 
 /**
  * Class restore_checkin_activity_task.
