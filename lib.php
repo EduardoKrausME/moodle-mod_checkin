@@ -106,7 +106,6 @@ function checkin_delete_instance($id) {
     return true;
 }
 
-
 /**
  * Returns information used to build and cache the course module.
  *
@@ -128,11 +127,28 @@ function checkin_get_coursemodule_info($coursemodule) {
 
     $result = new cached_cm_info();
     if ((int)$coursemodule->completion === COMPLETION_TRACKING_AUTOMATIC) {
-        $result->customdata = [
-            "customcompletionrules" => [
-                "completioncheckin" => (int)$checkin->completioncheckin,
-            ],
-        ];
+        $result->customdata["customcompletionrules"]["completioncheckin"] = (int)$checkin->completioncheckin;
     }
+
     return $result;
+}
+
+/**
+ * Returns the descriptions of active custom completion rules.
+ *
+ * @param cm_info|stdClass $cm Course module information.
+ * @return array
+ */
+function mod_checkin_get_completion_active_rule_descriptions($cm) {
+    if (empty($cm->customdata["customcompletionrules"])
+        || (int)$cm->completion !== COMPLETION_TRACKING_AUTOMATIC) {
+        return [];
+    }
+
+    $descriptions = [];
+    if (!empty($cm->customdata["customcompletionrules"]["completioncheckin"])) {
+        $descriptions[] = get_string("completioncheckin", "mod_checkin");
+    }
+
+    return $descriptions;
 }
